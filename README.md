@@ -11,6 +11,7 @@ $ git remote add upstream https://github.com/mvhs-apcs/Elevens.git
 
 Then create a branch that tracks with the original repo's activity 1 branch:
 ```
+$ git fetch upstream a1
 $ git checkout -b a1 upstream/a1
 ```
 
@@ -35,5 +36,6 @@ The activities have not all been pushed at the start of the lab because each act
 
 To move to the next activity, show your completed solution to your instructor. He will then push a branch for you to use for the next activity. The branch name will be formatted like this: `<your github username>-a#`. For example, Abe Lincoln would move to activity 4 with this command:
 ```
+$ git fetch upstream four_score-a4
 $ git checkout -b a4 upstream/four_score-a4
 ```
