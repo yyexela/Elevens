@@ -6,7 +6,7 @@ Fork and clone the [Elevens repo](http://github.com/mvhs-apcs/Elevens).
 
 Within the new folder, first setup the `upstream` repo so you can get new activity branches:
 ```
-$ git remote add upstream https://github.com/tpadjen/Elevens.git
+$ git remote add upstream https://github.com/mvhs-apcs/Elevens.git
 ```
 
 Then create a branch that tracks with the original repo's activity 1 branch:
