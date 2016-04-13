@@ -1,3 +1,5 @@
+package Buggy5;
+
 /**
  * This is a class that tests the Deck class using assert statements.
  */
