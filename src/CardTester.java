@@ -19,17 +19,14 @@ public class CardTester {
 		Card twoHearts2 = new Card("Two", "Hearts", 2);
 		Card oneHearts = new Card("One", "Hearts", 1);
 
-		if(twoHearts1.matches(twoHearts2) &&
-			!twoHearts1.matches(oneHearts)) return true;
-		else return false;
+		return(twoHearts1.matches(twoHearts2) &&
+			!twoHearts1.matches(oneHearts));
 	}
 
 	public static boolean testCardToString(){
 		Card oneHearts = new Card("One", "Hearts", 1);
-		if(oneHearts.toString().equals("One of Hearts (point value = 1)") &&
-			!(oneHearts.toString().equals("One of Hearts (point value = 2)"))) return true;
-		
-			else return false;
+		return(oneHearts.toString().equals("One of Hearts (point value = 1)") &&
+			!(oneHearts.toString().equals("One of Hearts (point value = 2)")));
 	}
 
 	public static boolean testCardGetters(){
@@ -38,12 +35,11 @@ public class CardTester {
 		Card twoHearts2 = new Card("Two", "Hearts", 2);
 		Card oneHearts = new Card("One", "Hearts", 1);
 
-		if(twoHearts.rank().equals("Two") &&
+		return(twoHearts.rank().equals("Two") &&
 			twoHearts.pointValue() == 2 && 
 			twoHearts.suit().equals("Hearts") &&
 			!twoHearts.rank().equals("Three") &&
 			!(twoHearts.pointValue() == 6) && 
-			!twoHearts.suit().equals("Spades")) return true;
-		else return false;
+			!twoHearts.suit().equals("Spades"));
 	}
 }

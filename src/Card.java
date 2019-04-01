@@ -74,13 +74,9 @@ public class Card {
 	 */
 	public boolean matches(Card otherCard) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 1 *** */
-		if(	rank.equals(otherCard.rank()) &&
+		return(	rank.equals(otherCard.rank()) &&
 			suit.equals(otherCard.suit()) &&
-			pointValue == otherCard.pointValue() ){
-				return true;
-		} else {
-			return false;
-		}
+			pointValue == otherCard.pointValue() );
 	}
 
 	/**
