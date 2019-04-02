@@ -11,7 +11,7 @@ public class DeckTester {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 		//Deck to test
 		String[] ranks = {"Two", "Three", "King", "Queen"};
-		String[] suits = {"Spades", "Hearts", "Hearts", "Diamonds"};
+		String[] suits = {"Spades", "Clubs", "Hearts", "Diamonds"};
 		int[] values = {2, 3, 13, 12};
 		Deck deck = new Deck(ranks, suits, values);
 
@@ -21,21 +21,19 @@ public class DeckTester {
 	}
 
 	public static boolean testDeckEmpty(Deck deck){
-		return( deck.isEmpty() == false && 
-				!(deck.isEmpty() == true)
-		);
+		return !deck.isEmpty();
 	}
 
 	public static boolean testDeckDeal(Deck deck){
 		Card card1 = new Card("Queen", "Diamonds", 12);
-		Card card2 = new Card("King", "Hearts", 13);
+		Card card2 = new Card("Queen", "Hearts", 12);
 		return( deck.deal().matches(card1) && 
 				deck.deal().matches(card2)
 		);
 	}
 
 	public static boolean testDeckSize(Deck deck){
-		return( deck.size() == 4 &&
+		return( deck.size() == 16 &&
 				!(deck.size() == 2)
 		);
 	}

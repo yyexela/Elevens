@@ -35,16 +35,16 @@ public class Deck {
 
 		//Figure out the smallest array size
 		int minArray = 0;
-		if(ranks.length <= suits.length) minArray = ranks.length; //ranks is smaller than suits
-		else minArray = suits.length; // suits is smaller than ranks
-		if(values.length < minArray) minArray = values.length; // values is smaller than the other 2
+		if(ranks.length <= values.length) minArray = ranks.length; //ranks is smaller than values
+		else minArray = values.length; // values is smaller than ranks
 		
 		for(int i = 0; i < minArray; i++){
-			Card current = new Card(ranks[i], suits[i], values[i]);
-			cards.add(current);
+			for(int j = 0; j < suits.length; j++){
+				Card current = new Card(ranks[i], suits[j], values[i]);
+				cards.add(current);
+			}
 		}
-
-		size = minArray;
+		size = minArray * suits.length;
 		shuffle();
 	}
 
