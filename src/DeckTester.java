@@ -52,5 +52,14 @@ public class DeckTester {
 		System.out.println();
 
 		/* *** TO BE COMPLETED IN ACTIVITY 4 *** */
+		//Test shuffle method
+		//Print first deck
+		System.out.println("Cards: " + '\n' + "" + d.toString());
+
+		//Print every shuffle
+		for(int i = 0; i < 4; i++){
+			d.shuffle();
+			System.out.println("Cards shuffled " + i + " : " + '\n' + "" + d.toString());
+		}
 	}
 }
