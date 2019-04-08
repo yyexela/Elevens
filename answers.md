@@ -26,7 +26,7 @@ Index | Card
 2: 3  
 3: 6  
 4: 7  
-(ArrayList size is 4)  
+(ArrayList size is 5)  
 d) 
 ```java
 	public static void printCards(ElevensBoard board){
