@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Arrays;
 import java.util.ArrayList;
 
 /**
@@ -54,6 +55,18 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		//Check cards size
+		if(selectedCards.size() != 2 && selectedCards.size() != 3) return false;
+		//Check if a PAIR has a sum of 11
+		if(selectedCards.size() == 2){
+			return containsPairSum11(selectedCards);
+		}
+		//Check if a TRIPLET contains a JQK
+		else if(selectedCards.size() == 3){
+			return containsJQK(selectedCards);
+		}
+		System.out.println("You shouldn't see this (isLegal method)");
+		return false;
 	}
 
 	/**
@@ -67,6 +80,9 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean anotherPlayIsPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		if(isEmpty()) return false;
+		//System.out.println("-------");
+		return containsPairSum11(cardIndexes()) || containsJQK(cardIndexes());
 	}
 
 	/**
@@ -79,6 +95,16 @@ public class ElevensBoard extends Board {
 	 */
 	private boolean containsPairSum11(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		if(selectedCards.size() < 2) return false;
+		for(int i = 0; i < selectedCards.size() - 1; i++){
+			for(int j = i + 1; j < selectedCards.size(); j++){
+				if(selectedCards.get(i) + selectedCards.get(j) == 11){
+					//System.out.println("There is a " + selectedCards.get(i) + " and a " + selectedCards.get(j));
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -91,5 +117,20 @@ public class ElevensBoard extends Board {
 	 */
 	private boolean containsJQK(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		if(selectedCards.size() < 3) return false;
+		boolean[] contains = new boolean[3]; //false for: "king", "queen", "jack" in that order
+		//create cardValues array
+		for(int i = 0; i < selectedCards.size(); i++){
+			String rank = cardAt(selectedCards.get(i)).rank();
+			if(rank.equals("king")) contains[0] = true;
+			else if(rank.equals("queen")) contains[1] = true;
+			else if(rank.equals("jack")) contains[2] = true;
+		}
+		//check that contains[] is all true
+		if(contains[0] && contains[1] && contains[2]){
+			//System.out.println("Contains King, Queen, Jack");
+			return true;
+		}
+		return false;
 	}
 }
