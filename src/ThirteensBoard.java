@@ -11,6 +11,8 @@ public class ThirteensBoard extends Board {
 	 */
 	private static final int BOARD_SIZE = 10;
 
+	private static final boolean I_AM_DEBUGGING = false;
+
 	/**
 	 * The ranks of the cards for this game to be sent to the deck.
 	 */
@@ -48,7 +50,7 @@ public class ThirteensBoard extends Board {
 	public boolean isLegal(List<Integer> selectedCards) {
 		/* *** TO BE MODIFIED IN ACTIVITY 11 *** */
 		if (selectedCards.size() == 1) {
-			return containsKing(selectedCards);
+			return containsK(selectedCards);
 		} else if (selectedCards.size() == 2) {
 			return containsPairSum13(selectedCards);
 		} else {
@@ -66,8 +68,15 @@ public class ThirteensBoard extends Board {
 	@Override
 	public boolean anotherPlayIsPossible() {
 		/* *** TO BE MODIFIED IN ACTIVITY 11 *** */
-		List<Integer> cIndexes = cardIndexes();
-		return containsPairSum13(cIndexes) || containsKing(cIndexes);
+		return containsPairSum13(cardIndexes()) || containsK(cardIndexes());
+	}
+
+	private boolean containsPairSum13(List<Integer> selectedCards){
+		return findPairSum13(cardIndexes()).size() == 2;
+	}
+
+	private boolean containsK(List<Integer> selectedCards){
+		return findK(cardIndexes()).size() == 1;
 	}
 
 	/**
@@ -78,20 +87,24 @@ public class ThirteensBoard extends Board {
 	 * @return a list of the indexes of an 13-pair, if an 13-pair was found;
 	 *         an empty list, if an 13-pair was not found.
 	 */
-	private boolean containsPairSum13(List<Integer> selectedCards) {
+	private List<Integer> findPairSum13(List<Integer> selectedCards) {
 		/* *** TO BE CHANGED INTO findPairSum13 IN ACTIVITY 11 *** */
+		List<Integer> cardsFound = new ArrayList<Integer>();
 		for (int sk1 = 0; sk1 < selectedCards.size(); sk1++) {
 			int k1 = selectedCards.get(sk1).intValue();
 			for (int sk2 = sk1 + 1; sk2 < selectedCards.size(); sk2++) {
 				int k2 = selectedCards.get(sk2).intValue();
 				if (cardAt(k1).pointValue() + cardAt(k2).pointValue() == 13) {
-					return true;
+					cardsFound.add(k1);
+					cardsFound.add(k2);
+					if(I_AM_DEBUGGING) System.out.println("Pair 13 found: " + k1 + ", " + k2);
+					return cardsFound;
 				}
 			}
 		}
-		return false;
+		return cardsFound;
 	}
-
+	
 	/**
 	 * Look for a king in the selected cards.
 	 * @param selectedCards selects a subset of this board.  It is list
@@ -100,15 +113,19 @@ public class ThirteensBoard extends Board {
 	 * @return a list of the index of a king, if a king was found;
 	 *         an empty list, if a king was not found.
 	 */
-	private boolean containsKing(List<Integer> selectedCards) {
+	private List<Integer> findK(List<Integer> selectedCards) {
 		/* *** TO BE CHANGED INTO findKing IN ACTIVITY 11 *** */
+		List<Integer> cardsFound = new ArrayList<Integer>();
+		boolean kingFound = false;
 		for (Integer kObj : selectedCards) {
 			int k = kObj.intValue();
-			if (cardAt(k).rank().equals("king")) {
-				return true;
+			if (!kingFound && cardAt(k).rank().equals("king")) {
+				kingFound = !kingFound;
+				cardsFound.add(k);
+				if(I_AM_DEBUGGING) System.out.println("King found: " + k);
 			}
 		}
-		return false;
+		return cardsFound;
 	}
 
 	/**
@@ -117,7 +134,10 @@ public class ThirteensBoard extends Board {
 	 */
 	public boolean playIfPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 11 *** */
-		return false; // REPLACE !
+		if(playPairSum13IfPossible() || playKIfPossible()){
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -128,7 +148,12 @@ public class ThirteensBoard extends Board {
 	 */
 	private boolean playPairSum13IfPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 11 *** */
-		return false; // REPLACE !
+		List<Integer> cardsFound = findPairSum13(cardIndexes());
+		if(cardsFound.size() == 2){
+			replaceSelectedCards(cardsFound);
+			return true;
+		};
+		return false;
 	}
 
 	/**
@@ -137,8 +162,13 @@ public class ThirteensBoard extends Board {
 	 * The simulation of this game uses this method.
 	 * @return true if a king play was found (and made); false othewise.
 	 */
-	private boolean playKingIfPossible() {
+	private boolean playKIfPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 11 *** */
-		return false; // REPLACE !
+		List<Integer> cardsFound = findK(cardIndexes());
+		if(cardsFound.size() == 1){
+			replaceSelectedCards(cardsFound);
+			return true;
+		};
+		return false;
 	}
 }

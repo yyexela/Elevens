@@ -68,8 +68,7 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean anotherPlayIsPossible() {
 		/* *** TO BE MODIFIED IN ACTIVITY 11 *** */
-		List<Integer> cIndexes = cardIndexes();
-		return findPairSum11(cardIndexes()).size() == 2 || findJQK(cardIndexes()).size() == 3;
+		return containsJQK(cardIndexes()) || containsPairSum11(cardIndexes());
 	}
 
 	private boolean containsPairSum11(List<Integer> selectedCards){
